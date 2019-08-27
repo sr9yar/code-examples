@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Project</title>
+  <meta name="description" content="Project">
+
+  <script>
+    var devMode = true;
+    try{
+      var params = (new URL(document.location)).searchParams;
+      if( parseInt(params.get('dev')) ) {
+        devMode = true;
+      }
+    } catch(e) {}
+  </script>
+
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+<div id="app">
+
+
+<style type="text/css">
+
+  .hide-on-init {
+    display: none;
+  }
+
+
+
+    .summary-label {
+      font-weight: bold;
+    }
+    
+    .has-error.input-label {
+      color: #a94442;
+    }
+    
+    .required-text {
+      display: none;
+      text-transform: uppercase;
+    }
+    .input-label.has-error .required-text {
+      display: initial;
+    }
+    
+    .summary-text {
+      float: right;
+    }
+    
+    .input-label {
+      font-weight: bold;
+      margin: 20px 0 0;
+    }
+    
+    .display-group-label {
+      font-weight: bold;
+      margin: 20px 0 0;
+    }
+    
+  
+    .mb-6 {
+      margin-bottom: 6rem;
+    }
+    .mb-5 {
+      margin-bottom: 3rem;
+    }
+    .mb-4 {
+      margin-bottom: 1.5rem;
+    }
+    .mb-3 {
+      margin-bottom: 1rem;
+    }
+    .mb-2 {
+      margin-bottom: 0.5rem;
+    }
+    .mb-1 {
+      margin-bottom: 0.25rem;
+    }
+    
+  
+  
+    .mt-6 {
+      margin-top: 6rem;
+    }
+    .mt-5 {
+      margin-top: 3rem;
+    }
+    .mt-4 {
+      margin-top: 1.5rem;
+    }
+    .mt-3 {
+      margin-top: 1rem;
+    }
+    .mt-2 {
+      margin-top: 0.5rem;
+    }
+    .mt-1 {
+      margin-top: 0.25rem;
+    }
+    
+  
+    .ml-6 {
+      margin-left: 6rem;
+    }
+    .ml-5 {
+      margin-left: 3rem;
+    }
+    .ml-4 {
+      margin-left: 1.5rem;
+    }
+    .ml-3 {
+      margin-left: 1rem;
+    }
+    .ml-2 {
+      margin-left: 0.5rem;
+    }
+    .ml-1 {
+      margin-left: 0.25rem;
+    }
+    
+  
+  
+    .mr-6 {
+      margin-right: 6rem;
+    }
+    .mr-5 {
+      margin-right: 3rem;
+    }
+    .mr-4 {
+      margin-right: 1.5rem;
+    }
+    .mr-3 {
+      margin-right: 1rem;
+    }
+    .mr-2 {
+      margin-right: 0.5rem;
+    }
+    .mr-1 {
+      margin-right: 0.25rem;
+    }
+    
+    .bold {
+      font-weight: bold;
+    }
+    
+    .row-selected{
+      background: #77a0c3 !important;
+      color: white !important;
+    }
+    
+    .row-disabled{
+      background: #d6d8db !important;
+      color: white !important;
+    }
+  
+    .ng-table th.sortable .sort-indicator {
+        float: left;
+    }
+    .ng-table th {
+      text-align: left;
+    }
+  .loading {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  
+  
+  .loading:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.85);
+  }
+  
+  
+  .loading:not(:required) {
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+  }
+  
+  .loading:not(:required):after {
+    content: '';
+    display: block;
+    font-size: 12px;
+    width: 1em;
+    height: 1em;
+    margin-top: -0.5em;
+    -webkit-animation: spinner 1500ms infinite linear;
+    -moz-animation: spinner 1500ms infinite linear;
+    -ms-animation: spinner 1500ms infinite linear;
+    -o-animation: spinner 1500ms infinite linear;
+    animation: spinner 1500ms infinite linear;
+    border-radius: 0.5em;
+    -webkit-box-shadow: rgba(87, 139, 185, 0.75) 1.5em 0 0 0, rgba(87, 139, 185, 0.75) 1.1em 1.1em 0 0, rgba(87, 139, 185, 0.75) 0 1.5em 0 0, rgba(87, 139, 185, 0.75) -1.1em 1.1em 0 0, rgba(87, 139, 185, 0.5) -1.5em 0 0 0, rgba(87, 139, 185, 0.5) -1.1em -1.1em 0 0, rgba(87, 139, 185, 0.75) 0 -1.5em 0 0, rgba(87, 139, 185, 0.75) 1.1em -1.1em 0 0;
+    box-shadow: rgba(87, 139, 185, 0.75) 1.5em 0 0 0, rgba(87, 139, 185, 0.75) 1.1em 1.1em 0 0, rgba(87, 139, 185, 0.75) 0 1.5em 0 0, rgba(87, 139, 185, 0.75) -1.1em 1.1em 0 0, rgba(87, 139, 185, 0.75) -1.5em 0 0 0, rgba(87, 139, 185, 0.75) -1.1em -1.1em 0 0, rgba(87, 139, 185, 0.75) 0 -1.5em 0 0, rgba(87, 139, 185, 0.75) 1.1em -1.1em 0 0;
+  }
+  
+  @-webkit-keyframes spinner {
+    0% {
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @-moz-keyframes spinner {
+    0% {
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @-o-keyframes spinner {
+    0% {
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes spinner {
+    0% {
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  
+
+  .background-screen {
+    background-color: rgba(255,255,255,0.85);
+  }
+
+  html, body
+ {
+  font-family: "Fira Sans Condensed";
+
+}
+
+
+html,
+.background-screen,
+#app
+ {
+  height: 100%;
+  overflow: auto;
+}
+
+
+body {
+  height: 100%;
+  min-height: 100%;
+  overflow:auto;
+    background-image: url(https://secureservercdn.net/ip-ac.mwp2.iad2.godaddy.com/u1f.98a.godaddywp.com/wp-content/uploads/2019/01/Modern-Steel-Kitchen-e1549906380662.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: top;
+
+}
+
+.ailgn-right {
+  text-align: right;
+}
+
+h1, h2, h3 {
+  
+    font-family: "Fira Sans Condensed";
+    color: #578bb9;
+}
+
+
+.btn-outline {
+    border: 1px solid #77a0c3;
+    color: #77a0c3;
+    background-color: transparent;
+}
+.btn-outline:hover,
+.btn-outline:focus,
+.btn-outline:active
+ {
+  color: #2e6fa7;
+}
+
+.date-error{
+  color:#a94442;
+  font-weight: normal;
+}
+
+.header-separator {
+  border-top: 2px solid #578bb9;
+}
+
+
+.btn-select{
+  margin-left: 10px;
+  float: right;
+}
+
+
+.btn-clear {
+    font-size: 32px;
+    line-height: 64%;
+    color: #777;
+}
+
+
+
+.filter-wrapper {
+    border: 1px solid #77a0c3;
+    border-radius: 4px;
+    padding: 12px;
+}
+
+
+.filter-wrapper-heading 
+  {
+      margin-top: 0px;
+  }
+
+.filter-label 
+  {
+      margin-top: 16px;
+  }
+
+.main-logo {
+  max-height: 108px;
+}
+
+  </style>
+
+
+
+    <div ng-if="loading" class="loading">Loading&#8230;</div>
+
+    <div class="hide-on-init container-fluid ng-cloak background-screen">
+
+              <div class="row mt-3 ">
+                <div class="col-md-6">
+                    <h1>
+                      Company Name
+                      <br >
+					            Stock on Hand Report - Step 1
+                    </h1>
+                </div>
+                <div class="col-md-6 ailgn-right">
+                    <img class="main-logo" src="https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX1914507.jpg" alt="Company Logo">
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-md-12">
+                  <hr class="header-separator">
+                </div>
+              </div>
+
+
+
+              <div ng-controller="BulkController">
+              <div  ng-show="!submitSuccessful"  >
+
+
+              <div  class="mb-5 row">
+
+
+                  <div class="col-md-4">
+
+                      <h2 class="mt-5">1. Select your Orders </h2>
+
+                <form name="form" novalidate ng-submit="onSubmit()" >
+
+     
+                  <button class="btn button btn-primary"> Submit </button>
+
+                  </form>   
+                </div>
+
+                
+                <div  class="col-md-8">
+                    <div  class="mt-5 mb-5  filter-wrapper">
+        
+                      <div  class="row">
+                        <div  class="col-md-6">
+        
+        
+        
+                          <h3 class="filter-wrapper-heading"> Filters </h3>
+        
+                          <label class="filter-label"> Filter by customer </label>
+
+                          <select ng-model="customerFilterInput" ng-change="filter()"  class="form-control">
+                            <option value=""> == None selected == </option>
+                            <option ng-repeat="customer in customerOptions" value="{{ customer }}">{{ customer }}</option>
+                          </select>
+    
+    
+                          <label class="filter-label"> Filter by project </label>
+    
+                          <select ng-model="projectFilterInput" ng-change="filter()"  class="form-control">
+                            <option value=""> == None selected == </option>
+                            <option ng-repeat="project in projectOptions" value="{{ project }}">{{ project }}</option>
+                          </select>
+        
+        
+        
+                          <label class="filter-label"> Order Date </label>
+                          <input placeholder="MM/DD/YYYY" ui-date-mask="MM/DD/YYYY" parse="false"  model-view-value="true" 
+                            type="text" ng-model="dateInput" ng-change="filter()"  class="form-control">
+
+                            
+                      <label class="filter-label"> Truck Lot No </label>
+                      <input type="text" ng-model="truckLotNoInput" ng-change="filter()"  class="form-control">
+
+
+        
+                        </div>
+                      <div  class="col-md-6">
+        
+                        <label class="filter-label hide"> Filter by stage </label>
+                        <div class="checkbox hide">
+                          <label>
+                            <input 
+                                ng-model="filterByStagePendingApproval" 
+                                ng-true-value="true"
+                                ng-false-value="false"
+                                ng-change="filter()" 
+                                type="checkbox" 
+                                > 
+                                Pending Approval  
+                              </label>
+                        </div>
+                        <div class="checkbox hide">
+                          <label>
+                            <input 
+                              ng-model="filterByStageDraft" 
+                              ng-true-value="true"
+                              ng-false-value="false"
+                              type="checkbox" 
+                              ng-change="filter()" 
+                              > 
+                              Draft 
+                            </label>
+                        </div>
+        
+        
+                        <label class="filter-label"> Row selection </label>
+        
+                        <div  class="row">
+                            <div  class="col-md-12">
+                                <button ng-click="selectAll()" class="btn button btn-outline"> Select All </button>
+                                <button ng-click="deselectAll()" class="btn button btn-outline"> Deselect All </button>
+                            </div>
+                        </div>
+        
+        
+        
+        
+        
+                    </div>
+                  </div>
+        
+        
+                    </div>
+                  </div>
+        
+
+
+                  <div class="col-md-6">
+
+                        <div ng-if="noOrdersSelected" class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Error!</strong>  <br>
+                            Please, select at least one order.
+                          </div>
+  
+
+                        
+                  </div>
+              </div>
+
+
+            <table ng-table="tableParams" class="table">
+
+                <tr ng-repeat="row in $data" 
+                  ng-class="{'row-selected': row.checked}">
+
+                <td data-title="''">
+                  <input type="checkbox" 
+                    ng-model="row.checked" 
+                  > 
+
+                </td>
+
+
+                  <td data-title="'Date'">{{row.date}}</td>
+                  <td data-title="'Order #'">{{row.number}}</td>
+                  <td data-title="'Customer'">{{row.customer}}</td>
+                  <td data-title="'Project'">{{row.project}}</td>
+<!--                   <td data-title="'Memo'">{{row.memo}}</td>
+ -->
+ <td data-title="'truckLotNo'">{{row.truckLotNo}}</td>
+                </tr>
+
+              </table>
+
+
+            </div>
+
+              <div ng-if="submitSuccessful" class="mb-5">
+
+                  <h2 class="mt-5"> Data submitted successfully! </h2>
+                  <p>The sales orders data was sent to the server and is being proccessed. Thank you. </p>
+
+                  <button ng-click="csv()"    class="btn button btn-primary"> Generate CSV </button>
+                  <button ng-click="back()" class="btn button btn-primary"> Go Back </button>
+
+
+                  <table ng-table="tableParams2" class="table">
+                    <tr ng-repeat="row in $data" 
+                      ng-class="{'row-selected': row.checked}">
+        
+
+                      <td data-title="'Item ID'">{{row.id}}</td>
+                      <td data-title="'Name'">{{row.name}}</td>
+                      <td data-title="'On hand'">{{row.on_hand}}</td>
+                      <td data-title="'On Order'">{{row.on_order}}</td>
+
+                      
+                    </tr>
+                  </table>
+
+
+                  
+              </div>
+
+    
+
+
+
+        </div>
+
+        
+
+
+
+<script type="text/javascript">
+
+
+setTimeout(function(){
+  if (document.readyState === "complete" 
+     || document.readyState === "loaded" 
+     || document.readyState === "interactive") {
+      loadLibraries();
+  } else {
+    document.addEventListener("DOMContentLoaded", loadLibraries );
+  }
+},0);
+
+
+
+ var loadLibraries = function(event) {
+
+
+
+
+var scriptsArr = [
+
+  "https://code.jquery.com/jquery-1.12.4.min.js",
+
+  "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js",
+
+  "https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js", 
+  "https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-animate.min.js", 
+  "https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-touch.min.js", 
+  "https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-sanitize.js", 
+
+  "https://unpkg.com/ng-table@3.0.1/bundles/ng-table.min.js", 
+
+  "https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js", 
+  "https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.20.0/select.min.js", 
+  "https://cdnjs.cloudflare.com/ajax/libs/angular-input-masks/4.3.0/angular-input-masks-standalone.min.js",
+
+];
+
+function loadScript(path, callback) {
+  console.log('loadScript', scriptsArr.length, path);
+
+  var done = false;
+  var script = document.createElement('script');
+
+  script.onload = handleLoad;
+  script.onreadystatechange = handleReadyStateChange;
+  script.onerror = handleError;
+  script.src = path;
+  document.head.appendChild(script);
+
+  function handleLoad() {
+    if (!done) {
+      done = true;
+      if(typeof callback === 'function') {
+        callback(path, 'ok');
+      }
+
+    }
+  }
+
+  function handleReadyStateChange() {
+    var state;
+
+    if (!done) {
+      state = script.readyState;
+      if (state === 'complete') {
+        handleLoad();
+      }
+    }
+  }
+
+  function handleError() {
+    if (!done) {
+      done = true;
+      if(typeof callback === 'function') {
+        callback(path, 'error');
+      }
+    }
+  }
+
+}
+
+var cb = function() {
+  scriptsArr.shift();
+  if (scriptsArr.length && !!scriptsArr[0]) {
+
+    loadScript(scriptsArr[0], cb)
+
+  } else {
+    console.log('all scripts are loaded, firing angular app' );
+    setTimeout(function(){ 
+      startApp(); 
+    }, 0 );
+    
+  }
+
+};
+if (scriptsArr.length && !!scriptsArr[0]) {
+  loadScript(scriptsArr[0], cb );
+}
+
+
+
+
+
+var stylesArr = [
+
+"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
+"https://unpkg.com/ng-table@3.0.1/bundles/ng-table.min.css",
+"https://fonts.googleapis.com/css?family=Fira+Sans+Condensed%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%7CMontserrat%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%7CMontserrat%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%7CFira+Sans+Condensed%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%7CFira+Sans+Condensed%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic&#038;subset=latin%2Clatin-ext&#038;ver=1.0.0",
+
+];
+
+
+function loadStyle(path) {
+
+  var style = document.createElement('link');
+
+  style.rel = "stylesheet";
+  style.type = "text/css";
+  style.media = "all";
+  style.href = path;
+  document.head.appendChild(style);
+
+}
+
+for (var i=0; i < stylesArr.length; i++) {
+  console.log('%cloadStyle ' + i + ' ' + stylesArr[i] + ' ', 'font-weight: bold; color: green;');
+  loadStyle(stylesArr[i]);
+}
+
+
+
+};
+
+
+
+    function startApp(){
+    
+    var elems = document.querySelectorAll('.hide-on-init');
+    
+    for (var i = 0; i < elems.length; i++) {
+      elems[i].classList.remove('hide-on-init');
+    }
+    
+    
+    
+    function rnd(max, min){
+      if (typeof max === 'undefined'){
+        var max = 100;
+      }
+      if (typeof min === 'undefined'){
+        var min = 0;
+      }
+      return Math.floor((Math.random() * max) + min);;
+    }
+
+    var customerTestArr = [
+      'Customer Name 1',
+      'Customer Name 2',
+      'Company Name 3',
+      'Customer  4',
+      'Customer  5',
+      'Company  6'
+    ];
+
+    var projectTestArr = [
+      'Project Name 1',
+      'Proj 2',
+      'Project 3',
+      'Project Name 11',
+      'Proj 22',
+      'Project 33'
+    ];
+
+    var stageTestArr = [
+      'Pending Approval',
+      'Draft'
+    ];
+
+    var memoArr = [
+      'Memo  1',
+      'Memo  2',
+      'Memo  3',
+      'Memo  4',
+    ];
+
+    var approvalTestArr = [
+        true,
+        false
+      ];
+
+      var nameArr = [
+        'name  1',
+        'name  2',
+        'name  3',
+        'name  4',
+      ];
+
+      var onHandArr = [
+        'on hand  1',
+        'on hand  2',
+        'on hand  3',
+        'on hand  4',
+      ];
+
+      var onOrderArr = [
+        'on order  1',
+        'on order  2',
+        'on order  3',
+        'on order  4',
+      ];
+      
+
+
+    function getTestItemObject() {
+      return { 
+    
+              id: rnd(1000),
+              name: nameArr[rnd(nameArr.length)],
+              on_hand: onHandArr[rnd(onHandArr.length)],
+              on_order: onOrderArr[rnd(onOrderArr.length)],
+
+            };
+    }
+
+    function getTestObject() {
+      return { 
+    
+              checked: false,
+              id: rnd(1000),
+              number: rnd(1000),
+              memo: memoArr[rnd(memoArr.length)],
+              customer: customerTestArr[rnd(customerTestArr.length)],
+              project: projectTestArr[rnd(projectTestArr.length)],
+              stage: stageTestArr[rnd(stageTestArr.length)],
+              sendForApproval: approvalTestArr[rnd(approvalTestArr.length)],
+              date: rnd(1000),
+              shipdate: rnd(1000),
+              amount: rnd(1000),
+              truckLotNo: rnd(100000), 
+    
+            };
+    }
+
+    
+    
+    var testArr = [];
+    for (var i = 0 ; i < 10; i ++) {
+      testArr.push( getTestObject() );
+    }
+
+    
+    
+    var testItemsArr = [];
+    
+    testItemsArr.push( getTestItemObject() );
+    testItemsArr.push( getTestItemObject() );
+    testItemsArr.push( getTestItemObject() );
+    testItemsArr.push( getTestItemObject() );
+    testItemsArr.push( getTestItemObject() );
+    
+    var app = angular.module('app', ['ui.bootstrap', 'ui.select', 'ngSanitize', 'ngTable', 'ui.utils.masks']);
+    
+    app.controller('BulkController', function (
+        NgTableParams, 
+        $scope, 
+        $filter,
+        $http, 
+        $timeout, 
+        $interval
+      ) {
+        $scope.form = {};
+        var lastProjectFilterCustomer = '';
+
+        function prepareData(arr){
+        for (var i = 0; i < arr.length; i++ ) {
+          arr[i].dateForSorting = parseDate( arr[i].date );
+          arr[i].shipdateForSorting = parseDate( arr[i].shipdate );
+        }
+        return arr;
+      }
+
+      function deepCopy( v ){
+        return JSON.parse(JSON.stringify(v));
+      }
+
+
+
+
+
+      if( typeof devMode !== 'undefined' && devMode ) {
+        $scope.data = deepCopy(testArr);
+        $scope.dataOrig = deepCopy(testArr);
+        $scope.itemData = deepCopy(testItemsArr);
+      } else {
+        $scope.data = data.salesOrders;
+        $scope.dataOrig = data.salesOrders;
+        $scope.itemData = data.items;
+      }
+
+
+
+      $scope.loading = false;
+      $scope.submitSuccessful = false;
+
+      $scope.postData = null;
+
+      var getData = function(params) {    	  
+        return $scope.data;
+      };
+
+      var getItemData = function(params) {    	  
+        return $scope.itemData;
+      };
+    
+
+      $scope.tableParams = new NgTableParams({
+
+      }, {
+        getData: function(params) { return getData(params); },
+        counts: []
+      });
+    
+
+      $scope.tableParams2 = new NgTableParams({
+      }, {
+        getData: function(params) { return getItemData(params); }
+
+      });
+
+
+      $scope.onSubmit = function() {
+
+
+
+        $scope.postData = {
+
+          salesOrders: [],
+
+        };
+
+
+        for(var i = 0; i < $scope.data.length; i++){
+          if( $scope.data[i].checked ){
+            $scope.postData.salesOrders.push( $scope.data[i].id );
+
+          }
+
+        }
+
+
+        if (!$scope.postData.salesOrders.length){
+          $scope.noOrdersSelected = true;
+          return null;
+        } else {
+          $scope.noOrdersSelected = false;
+        }
+
+
+        console.log('POST Data:', $scope.postData );
+        const redirectURL = 'https://my-domain.com/method?action=getitems&orders='+encodeURIComponent(JSON.stringify( $scope.postData.salesOrders ));
+        console.log('redirectURL:', redirectURL );
+
+        location.href = redirectURL;
+        return null;
+        $scope.submitSuccessful = true;
+
+        if( typeof devMode !== 'undefined' && devMode ) {
+          return null;
+        } 
+
+
+        var postUrl = 'https://url-to-post-to.com/post-method';
+        $scope.loading = true;
+        
+
+          $http({
+                method: 'POST',
+                url: postUrl,
+                data: $scope.postData,
+                headers:  { 'Content-Type': 'application/json' }
+            }).then(function(res){
+              console.log('Post success :', res);
+  
+
+  
+              $scope.loading = false;
+  
+            }, function(res){
+              console.log('Post failure :', res);
+  
+              $scope.loading = false;
+            });
+
+        
+      };
+
+
+
+
+
+      function customerExists(id) {
+
+        for(var i=0; i < $scope.data.length; i++){
+          if( $scope.data[i].id == id ){
+            return true;
+          }
+        }
+        return false;
+
+      }
+
+        function toUnique(a, b, c) {
+          b = a.length;
+          while (c = --b)
+            while (c--) a[b] !== a[c] || a.splice(c, 1);
+          return a;
+        }
+
+        function getFilteredResult() {
+
+          var data = [];
+
+          var filterByStage = [];
+          if(  $scope.filterByStagePendingApproval  ){
+            filterByStage.push(  'Pending Approval' );
+          }
+          if(  $scope.filterByStageDraft  ){
+            filterByStage.push(  'Draft' );
+          }
+
+          if(filterByStage.length){
+            for(var i = 0; i < $scope.dataOrig.length; i++){
+              if( filterByStage.indexOf( $scope.dataOrig[i].stage)  !== -1 ){
+                data.push( deepCopy($scope.dataOrig[i]) );
+              }
+            }
+          } else {
+            data =  deepCopy( $scope.dataOrig );
+          }
+
+          if (!!$scope.customerFilterInput) {
+            var   dataTemp =  [];
+
+            for(var i = 0; i < data.length; i++){
+              if( data[i].customer.toString().toLowerCase().trim()  === $scope.customerFilterInput.toString().trim().toLowerCase() ) {
+                dataTemp.push( deepCopy( data[i] ) );
+              }
+            }
+
+            data = dataTemp;
+          }
+
+          if (!!$scope.projectFilterInput) {
+            var dataTemp =  [];
+
+            for( var i = 0; i < data.length; i++ ){
+              if( data[i].project.toString().toLowerCase().trim()  === $scope.projectFilterInput.toString().trim().toLowerCase() ) {
+                dataTemp.push( deepCopy( data[i] ) );
+              }
+            }
+
+            data = dataTemp;
+          }
+
+
+          if (!!$scope.dateInput) {
+            var dataTemp =  [];
+
+            for( var i = 0; i < data.length; i++ ){
+              if( data[i].date.toString().indexOf( $scope.dateInput.trim() )  !== -1 ) {
+                dataTemp.push( deepCopy( data[i] ) );
+              }
+            }
+
+            data = dataTemp;
+          }
+
+          if (!!$scope.shipdateInput) {
+            var dataTemp =  [];
+
+            for( var i = 0; i < data.length; i++ ){
+
+              if( data[i].shipdate.toString().indexOf( $scope.shipdateInput.trim() )  !== -1 ) {
+                dataTemp.push( deepCopy( data[i] ) );
+              }
+            }
+
+            
+            data = dataTemp;
+          }
+
+
+
+          if (!!$scope.truckLotNoInput) {
+            var dataTemp =  [];
+
+            for( var i = 0; i < data.length; i++ ){
+
+              if( data[i].truckLotNo.toString().indexOf( $scope.truckLotNoInput.trim() )  !== -1 ) {
+                dataTemp.push( deepCopy( data[i] ) );
+              }
+            }
+
+            data = dataTemp;
+          }
+
+          
+
+
+
+          for(var i = 0; i < data.length; i++){
+              for(var j = 0; j < $scope.data.length; j++){
+                if( $scope.data[j].id == data[i].id ){
+                  data[i].checked = $scope.data[j].checked;
+                  data[i].sendForApproval = $scope.data[j].sendForApproval;
+                }
+              }
+            }
+
+            return data;
+        }
+
+
+      const getCustomerOptions = function(data){
+
+        if (typeof data === 'undefined') {
+          var data = deepCopy( $scope.dataOrig );
+        }
+
+        const options = [];
+
+        for (let i = 0; i < data.length; i++) {
+          options.push(data[i].customer);
+        }
+
+        return toUnique(options);
+        };
+
+
+        const getProjectOptions = function(data){
+
+        if (typeof data === 'undefined') {
+          var data = deepCopy( $scope.dataOrig );
+        }
+
+        var options = [];
+
+        for (let i = 0; i < data.length; i++) {
+          if( $scope.customerFilterInput.toString().toLowerCase().trim() &&
+              data[i].customer &&
+              !($scope.customerFilterInput.toString().toLowerCase().trim() === data[i].customer.toString().toLowerCase().trim()) ){
+                continue;
+          }
+
+          options.push(data[i].project);
+
+        }
+
+
+        if(  $scope.customerFilterInput.toString().toLowerCase().trim() &&
+              !( lastProjectFilterCustomer === $scope.customerFilterInput ) &&
+              options.length
+            )
+          {
+            lastProjectFilterCustomer = $scope.customerFilterInput;
+            $scope.projectFilterInput = options[0];
+            $scope.filter();
+          }
+
+
+
+        return toUnique(options);
+        };
+
+      $scope.filter = function () {
+
+          $scope.data = getFilteredResult();
+          $scope.customerOptions = getCustomerOptions();
+          $scope.projectOptions = getProjectOptions();
+
+          getTableParams();
+      };
+
+      
+      $scope.customerFilterInput = '';
+      $scope.projectFilterInput = '';
+      $scope.filterByStagePendingApproval = false;
+      $scope.filterByStageDraft = false;
+
+      $scope.projectOptions = [];
+      $scope.customerOptions = [];
+
+      $scope.clearFilterByCustomer= function (){
+        $scope.customerFilterInput = '';
+        $scope.filter();
+      };
+
+
+      $scope.clearFilterByProject= function (){
+        $scope.projectFilterInput = '';
+        $scope.filter();
+      };
+      
+
+
+      $scope.customerOptions = getCustomerOptions( $scope.data );
+
+      $scope.projectOptions = getProjectOptions( $scope.data );
+
+
+      $scope.back = function(){
+        window.location.href = window.location.href;
+      };
+
+
+      $scope.csv = function(){
+        console.log('CSV generated.');
+      };
+
+
+      $scope.selectAll = function(){
+        for(var i=0; i < $scope.data.length; i++){
+          $scope.data[i].checked = true;
+        }
+
+
+      };
+    
+      $scope.deselectAll = function(){
+        for(var i=0; i < $scope.data.length; i++){
+          $scope.data[i].checked = false;
+        }
+      };
+    
+
+      $scope.getPostData = function(){
+        if ( typeof devMode === 'undefined' ||  !devMode ) {
+          return '';
+        }
+
+        if ($scope.postData ) {
+          return JSON.stringify($scope.postData );
+        }
+        return '';
+      };
+
+
+
+      function getTableParams(dataset) {
+        if (typeof dataset === 'undefined') {
+          var dataset = $scope.data;
+        }
+
+        $scope.tableParams = new NgTableParams({
+          sorting: { stage: "asc" } 
+        }, {
+          dataset: dataset
+        });
+      }
+      getTableParams();
+    });
+    
+    
+
+    angular.element(function() {
+      angular.bootstrap(document, ['app']);
+    });
+
+    }
+    
+    </script>
+    
+    
+    </div>
+    
+    
+    
+
+
+
+</body>
+</html>

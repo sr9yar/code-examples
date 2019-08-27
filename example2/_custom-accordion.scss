@@ -1,0 +1,221 @@
+.custom-accordion {
+
+
+
+  &-badges {
+    padding-left: 16px;
+  }
+
+  &-badge {
+    transition: 300ms all ease-in-out;
+    background-color: $clr-gray-bg;
+    color: $clr-black;
+
+    padding: 0 4px;
+    font-family: $font-primary;
+    font-size: 14px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    border-radius: 12px;
+  }
+
+
+  &-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .can-open {
+      cursor: pointer;
+    }
+  
+  }
+
+  &-inner {
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+    position: relative;
+    border: 1px solid $clr-gray-bg;
+    border-radius: $default-border-radius;
+    overflow: hidden;
+  }
+
+
+  &-chevron {
+    transition: 300ms all ease-in-out;
+    color: $clr-black;
+    cursor: pointer;
+
+    height: 38px;
+    width: 36px;
+    border-left: 1px solid $clr-gray-bg;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      color: $clr-gray-bg;
+    }
+  }
+  
+
+  &-panel {
+    // overflow: hidden;
+    transition: 300ms all ease-in-out;
+    &.collapsed {
+      height: 0 !important;
+      overflow: hidden;
+    }
+ 
+  }
+
+
+  &-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid $clr-gray-bg;
+    background-color: $clr-gray-bg;
+    padding: 10px 0 10px 20px;
+
+    .table-header-title-cell {
+      padding: 0 !important;
+    }
+
+    .table-body,
+    .table-header-body
+     {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-cell{
+      &.title-cell {
+        color: #bcbcbc;
+        font-weight: normal;
+      }
+      &.data-cell {
+        color: #1e1e2c;
+        font-weight: normal;
+      }
+      &.blue-highlight {
+        color: #008aed;
+        font-weight: bold;
+      }
+
+      font-family: Roboto;
+      font-size: 14px;
+
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.41;
+      letter-spacing: normal;
+
+      padding: 0 2px;
+    }
+
+
+    &-icon {
+      color: $clr-gray-border;
+      cursor: pointer;
+      padding: 4px 8px;
+
+      &:hover {
+        color: $clr-blue-bg-d;
+      }
+
+      &.titles-line {
+
+
+      }
+    }
+
+
+    &-title {
+
+      &-main {
+        font-family: $font-primary;
+        font-size: 16px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: $clr-black;
+      }
+      &-sub {
+        font-family: $font-primary;
+        font-size: 12px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.41;
+        letter-spacing: normal;
+        color: $clr-gray-border;
+        text-transform: uppercase;
+        &-append {
+          font-weight: 500;
+          color: $clr-blue-bg-d;
+        }
+      }
+    }
+
+
+    &-icons {
+      padding: 0 4px;
+      display: flex;
+    }
+  }
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    svg {
+      transition: 300ms all ease-in-out;
+      &.rotated {
+        transform: rotate(181deg);
+
+      }
+    }
+    &.open {
+      .custom-accordion-title {
+        color: $clr-primary;
+      }
+      .custom-accordion-badge {
+        background-color: $clr-primary;
+        color: $clr-white;
+      }
+      .custom-accordion-chevron {
+        color: $clr-primary;
+      }
+    }
+
+  }
+
+  &-title{
+    font-family: $font-primary;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: $clr-black;
+    transition: 300ms all ease-in-out;
+
+      &-wrapper {
+      display: flex;
+      align-items: center;
+      padding: 8px 15px;
+    }
+  }
+
+
+}
+ 

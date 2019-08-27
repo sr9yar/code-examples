@@ -1,0 +1,49 @@
+
+<div 
+  (mouseenter)="mouseEnter( $event )" 
+  (mouseleave)="mouseLeave( $event )" 
+  class="video__item">
+  <div class="video__item__img-box">
+    <span class="time">
+        {{ item.duration | Seconds }}
+    </span>
+    <video 
+        [id]="'preview-video-'+this.item._id"
+        preload="none" 
+        [hidden]="!showVideoPreview" 
+        autoplay="true" 
+        [muted]="true" 
+        #previewVideoElem
+        loop="true" 
+        [src]="getVideoPreview()" 
+        type="video/mp4"
+        class="video__item__img"
+        [routerLink]="routerLink"
+        >
+    </video>
+    <img 
+        [hidden]="showVideoPreview" 
+        *ngIf="showImagePreview()"
+        class="video__item__img" 
+        [src]="getImagePreview()"
+      />
+    <div class="video-action">
+      <button 
+          [ngClass]="{'active': isInFavorites()}" 
+          (click)="toggleFavorite()" 
+          class="btn-like"></button>
+      <button 
+          [routerLink]="routerLink" 
+          class="btn">
+            {{ item.render_job_id ? 'View' : 'Customize' }}
+      </button>
+    </div>
+  </div>
+  <div class="video__item__footer">
+    <span 
+        [routerLink]="routerLink" 
+        class="video__item__title">
+          {{ item.name }}
+    </span>
+  </div>
+</div>
